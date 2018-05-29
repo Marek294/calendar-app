@@ -2,6 +2,11 @@ td {
   border: 1px solid #edecec;
 }
 
+.bodyCell {
+  width: 500px;
+  height: 200px;
+}
+
 tr:nth-child(even) .row__active {
   background: #f2f2f2;
 }

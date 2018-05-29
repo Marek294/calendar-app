@@ -5,10 +5,11 @@ import "./Table.css";
 
 class Table extends Component {
   render() {
+    const { calendarData } = this.props;
     return (
       <table className="table">
         <Header />
-        <Body />
+        <Body calendarData={calendarData} />
       </table>
     );
   }

@@ -2,10 +2,11 @@ import React from "react";
 import Table from "../../Table/Table";
 import "./CalendarBody.css";
 
-const CalendarBody = () => {
+const CalendarBody = props => {
+  const { calendarData } = props;
   return (
     <div className="calendarBody">
-      <Table />
+      <Table calendarData={calendarData} />
     </div>
   );
 };
