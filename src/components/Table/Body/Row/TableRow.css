@@ -1,0 +1,11 @@
+td {
+  border: 1px solid #edecec;
+}
+
+tr:nth-child(even) .row__active {
+  background: #f2f2f2;
+}
+
+tr:nth-child(odd) .row__active {
+  background: #edecec;
+}
