@@ -1,0 +1,10 @@
+.calendarHeader {
+  padding-bottom: 10px;
+}
+
+.calendarHeader__title {
+  margin: 10px;
+  font-size: 2em;
+  text-align: left;
+  font-weight: 300;
+}
