@@ -1,0 +1,9 @@
+.event {
+  height: 100%;
+  border: 1px solid white;
+  font-size: 0.75em;
+}
+
+.past {
+  background: #d6ecff;
+}
