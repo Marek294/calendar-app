@@ -5,11 +5,15 @@ import "./Table.css";
 
 class Table extends Component {
   render() {
-    const { calendarData } = this.props;
+    const { calendarData, handleDragEventStart, handleDropEvent } = this.props;
     return (
       <table className="table">
         <Header />
-        <Body calendarData={calendarData} />
+        <Body
+          calendarData={calendarData}
+          handleDragEventStart={handleDragEventStart}
+          handleDropEvent={handleDropEvent}
+        />
       </table>
     );
   }

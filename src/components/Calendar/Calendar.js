@@ -50,7 +50,39 @@ class Calendar extends Component {
         start_hour: 1,
         day_number: 2
       }
-    ]
+    ],
+    draggedEvent: null
+  };
+
+  handleDragEventStart = event => e => {
+    console.log("drag start");
+    this.setState({
+      draggedEvent: event
+    });
+  };
+
+  handleDropEvent = start_hour => day_number => e => {
+    e.preventDefault();
+    const { draggedEvent, calendarData } = this.state;
+    let newCalendarData = [...calendarData];
+
+    const element = newCalendarData.find(item => item.id === draggedEvent.id);
+    const index = newCalendarData.findIndex(
+      item => item.id === draggedEvent.id
+    );
+
+    element.start_hour = start_hour;
+    element.day_number = day_number;
+
+    newCalendarData = [
+      ...newCalendarData.slice(0, index),
+      element,
+      ...newCalendarData.slice(index + 1)
+    ];
+
+    this.setState({
+      calendarData: newCalendarData
+    });
   };
 
   render() {
@@ -59,7 +91,11 @@ class Calendar extends Component {
     return (
       <div className="calendar">
         <Header />
-        <Body calendarData={calendarData} />
+        <Body
+          calendarData={calendarData}
+          handleDragEventStart={this.handleDragEventStart}
+          handleDropEvent={this.handleDropEvent}
+        />
       </div>
     );
   }

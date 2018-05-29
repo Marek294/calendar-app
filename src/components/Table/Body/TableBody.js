@@ -5,7 +5,7 @@ const filterData = (calendarData, start_hour) =>
   calendarData.filter(item => item.start_hour === start_hour);
 
 const TableBody = props => {
-  const { calendarData } = props;
+  const { calendarData, handleDragEventStart, handleDropEvent } = props;
   return (
     <tbody>
       {[
@@ -22,8 +22,15 @@ const TableBody = props => {
         "18:00",
         "19:00",
         "20:00"
-      ].map((time, i) => (
-        <TableRow key={i} time={time} events={filterData(calendarData, i)} />
+      ].map((time, start_hour) => (
+        <TableRow
+          key={start_hour}
+          start_hour={start_hour}
+          time={time}
+          events={filterData(calendarData, start_hour)}
+          handleDragEventStart={handleDragEventStart}
+          handleDropEvent={handleDropEvent(start_hour)}
+        />
       ))}
     </tbody>
   );

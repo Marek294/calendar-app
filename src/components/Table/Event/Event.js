@@ -10,12 +10,11 @@ const getHour = hour => {
 };
 
 const Event = props => {
-  const { event } = props;
-  const { patient, start_hour } = event;
+  const { patient, start_hour, handleDragEventStart } = props;
 
   return (
-    <a href="">
-      <div className="event q4 past">
+    <a href="" draggable onDragStart={handleDragEventStart}>
+      <div className="event past">
         <p className="hours">{getHour(start_hour)}</p>
         <p className="description">
           {patient.salutation} {patient.firstname} {patient.lastname}
