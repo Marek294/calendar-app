@@ -9,7 +9,7 @@ const Modal = props => {
   return showModal ? (
     <div className="modal">
       <Backdrop hideModal={hideModal} />
-      <AddEvent />
+      <AddEvent hideModal={hideModal} />
     </div>
   ) : null;
 };

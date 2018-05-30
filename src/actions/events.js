@@ -1,4 +1,4 @@
-import { CHANGE_EVENT_POSITION } from "./types";
+import { CHANGE_EVENT_POSITION, ADD_EVENT } from "./types";
 
 export const changeEventPosition = (draggedEvent, start_hour, day_number) => {
   return {
@@ -6,5 +6,12 @@ export const changeEventPosition = (draggedEvent, start_hour, day_number) => {
     draggedEvent,
     start_hour,
     day_number
+  };
+};
+
+export const addEvent = newEvent => {
+  return {
+    type: ADD_EVENT,
+    newEvent
   };
 };

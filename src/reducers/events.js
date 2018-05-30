@@ -1,4 +1,4 @@
-import { CHANGE_EVENT_POSITION } from "../actions/types";
+import { CHANGE_EVENT_POSITION, ADD_EVENT } from "../actions/types";
 
 const events = [
   {
@@ -48,6 +48,11 @@ export default (state = events, action) => {
       element.day_number = action.day_number;
 
       return newEvents;
+
+    case ADD_EVENT:
+      const { newEvent } = action;
+
+      return [...state, newEvent];
 
     default:
       return state;

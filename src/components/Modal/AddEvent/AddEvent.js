@@ -1,58 +1,109 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { addEvent } from "../../../actions/events";
 import "./AddEvent.css";
 
 class AddEvent extends Component {
   state = {
-    doctor: {
-      account_id: 7,
-      id: 1,
-      title: "Blue Walker"
+    event: {
+      doctor: {
+        account_id: 7,
+        id: 1,
+        title: "Blue Walker"
+      },
+      patient: {
+        salutation: "Mrs.",
+        firstname: "",
+        lastname: "",
+        gender: 0
+      },
+      start_hour: 0,
+      day_number: 1
     },
-    patient: {
-      salutation: "",
-      firstname: "",
-      lastname: "",
-      gender: 0
-    },
-    start_hour: null,
-    day_number: null
+    error: ""
+  };
+
+  isValid = newEvent => {
+    const { events } = this.props;
+    const { start_hour, day_number } = newEvent;
+
+    console.log(
+      !events.find(
+        event =>
+          event.start_hour === start_hour && event.day_number === day_number
+      )
+    );
+    return !events.find(
+      event =>
+        event.start_hour === start_hour && event.day_number === day_number
+    );
   };
 
   onSubmit = e => {
     e.preventDefault();
+    const { addEvent, hideModal, events } = this.props;
+    const { event } = this.state;
 
-    console.log(this.state);
+    const newEvent = { ...event };
+
+    if (this.isValid(newEvent)) {
+      newEvent.id = events.length + 1;
+      addEvent(newEvent);
+      hideModal();
+      return;
+    } else
+      this.setState({
+        error: "Termin zajęty"
+      });
   };
 
   handleChangeName = e =>
     this.setState({
-      patient: {
-        ...this.state.patient,
-        [e.target.name]: e.target.value
-      }
+      event: {
+        ...this.state.event,
+        patient: {
+          ...this.state.event.patient,
+          [e.target.name]: e.target.value
+        }
+      },
+      error: ""
     });
 
   handleChangeGender = e =>
     this.setState({
-      patient: {
-        ...this.state.patient,
-        salutation: e.target.value === 0 ? "Mrs." : "Mr.",
-        [e.target.name]: parseInt(e.target.value, 10)
-      }
+      event: {
+        ...this.state.event,
+        patient: {
+          ...this.state.event.patient,
+          salutation: e.target.value === 0 ? "Mrs." : "Mr.",
+          [e.target.name]: parseInt(e.target.value, 10)
+        }
+      },
+      error: ""
     });
 
   handleChangeSelect = e =>
     this.setState({
-      [e.target.name]: parseInt(e.target.value, 10)
+      event: {
+        ...this.state.event,
+        [e.target.name]: parseInt(e.target.value, 10)
+      },
+      error: ""
     });
 
   render() {
     const {
-      patient: { firstname, lastname, gender }
+      event: {
+        patient: { firstname, lastname, gender },
+        day_number,
+        start_hour
+      },
+      error
     } = this.state;
 
     return (
       <div className="addEvent">
+        <h3 className="addEvent__title">Dodaj Wizytę</h3>
         <form onSubmit={this.onSubmit} className="addEvent__form">
           <div className="form__data">
             <fieldset className="form__patientInformation">
@@ -64,6 +115,7 @@ class AddEvent extends Component {
                   name="firstname"
                   value={firstname}
                   onChange={this.handleChangeName}
+                  required
                 />
               </div>
               <div className="inputDiv">
@@ -73,13 +125,18 @@ class AddEvent extends Component {
                   name="lastname"
                   value={lastname}
                   onChange={this.handleChangeName}
+                  required
                 />
               </div>
               <div className="inputDiv">
                 <label>Płeć:</label> <br />
-                <select name="gender" onChange={this.handleChangeGender}>
-                  {["Kobieta", "Mężczyzna"].map((text, value) => (
-                    <option value={value} selected={value === gender}>
+                <select
+                  name="gender"
+                  onChange={this.handleChangeGender}
+                  value={gender}
+                >
+                  {["Kobieta", "Mężczyzna"].map((text, gender) => (
+                    <option key={gender} value={gender}>
                       {text}
                     </option>
                   ))}
@@ -90,7 +147,11 @@ class AddEvent extends Component {
               <legend>Wizyta:</legend>
               <div className="inputDiv">
                 <label>Dzień:</label> <br />
-                <select name="day_number" onChange={this.handleChangeSelect}>
+                <select
+                  name="day_number"
+                  onChange={this.handleChangeSelect}
+                  value={day_number}
+                >
                   {[
                     "Mo 9.11",
                     "Di 10.11",
@@ -100,22 +161,31 @@ class AddEvent extends Component {
                     "Sa 14.11",
                     "So 15.11"
                   ].map((text, day_number) => (
-                    <option value={day_number + 1}>{text}</option>
+                    <option key={day_number} value={day_number + 1}>
+                      {text}
+                    </option>
                   ))}
                 </select>
               </div>
               <div className="inputDiv">
                 <label>Godzina:</label> <br />
-                <select name="start_hour" onChange={this.handleChangeSelect}>
+                <select
+                  name="start_hour"
+                  onChange={this.handleChangeSelect}
+                  value={start_hour}
+                >
                   {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(
                     start_hour => (
-                      <option value={start_hour}>{8 + start_hour}:00</option>
+                      <option key={start_hour} value={start_hour}>
+                        {8 + start_hour}:00
+                      </option>
                     )
                   )}
                 </select>
               </div>
             </fieldset>
           </div>
+          {error ? <p className="error">{error}</p> : null}
           <button type="submit" className="form__submit">
             <p>Zapisz</p>
           </button>
@@ -125,4 +195,17 @@ class AddEvent extends Component {
   }
 }
 
-export default AddEvent;
+const mapStateToProps = state => {
+  return {
+    events: state.events
+  };
+};
+
+const mapDispatchToProps = dispatch => ({
+  addEvent: newEvent => dispatch(addEvent(newEvent))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddEvent);

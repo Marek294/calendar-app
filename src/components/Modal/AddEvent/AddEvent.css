@@ -1,6 +1,5 @@
 .addEvent {
   position: absolute;
-  height: 30%;
   width: 30%;
   top: 50%;
   left: 50%;
@@ -8,6 +7,13 @@
   background: white;
   padding: 50px;
   text-align: left;
+  border-radius: 20px;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.4);
+}
+
+.addEvent__title {
+  text-align: center;
+  margin-top: 0;
 }
 
 .addEvent__form {
@@ -33,4 +39,9 @@
 
 .form__submit {
   margin-top: 50px;
+}
+
+.error {
+  color: red;
+  text-align: center;
 }
