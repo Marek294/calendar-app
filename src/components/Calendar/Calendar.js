@@ -54,16 +54,23 @@ class Calendar extends Component {
     draggedEvent: null
   };
 
-  handleDragEventStart = event => e => {
-    console.log("drag start");
+  isEventExistOnDroppedCell = (start_hour, day_number, calendarData) =>
+    !!calendarData.find(
+      item => item.start_hour === start_hour && item.day_number === day_number
+    );
+
+  handleDragEventStart = event => e =>
     this.setState({
       draggedEvent: event
     });
-  };
 
   handleDropEvent = start_hour => day_number => e => {
     e.preventDefault();
     const { draggedEvent, calendarData } = this.state;
+
+    if (this.isEventExistOnDroppedCell(start_hour, day_number, calendarData))
+      return;
+
     let newCalendarData = [...calendarData];
 
     const element = newCalendarData.find(item => item.id === draggedEvent.id);

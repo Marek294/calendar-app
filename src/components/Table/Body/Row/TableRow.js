@@ -5,6 +5,31 @@ import "./TableRow.css";
 
 const dragOverCell = e => e.preventDefault();
 
+const drawCell = (day_number, handleDropEvent, displayEvent) => {
+  if (day_number === 3)
+    return (
+      <td
+        key={day_number}
+        className="bodyCell row__active"
+        onDragOver={dragOverCell}
+        onDrop={handleDropEvent(day_number)}
+      >
+        {displayEvent}
+      </td>
+    );
+  else
+    return (
+      <td
+        className="bodyCell"
+        key={day_number}
+        onDragOver={dragOverCell}
+        onDrop={handleDropEvent(day_number)}
+      >
+        {displayEvent}
+      </td>
+    );
+};
+
 const TableRow = props => {
   const { time, events, handleDragEventStart, handleDropEvent } = props;
   return (
@@ -22,27 +47,7 @@ const TableRow = props => {
           />
         ) : null;
 
-        if (day_number === 3)
-          return (
-            <td
-              key={day_number}
-              className="bodyCell row__active"
-              onDragOver={dragOverCell}
-              onDrop={handleDropEvent(day_number)}
-            >
-              {displayEvent}
-            </td>
-          );
-        return (
-          <td
-            className="bodyCell"
-            key={day_number}
-            onDragOver={dragOverCell}
-            onDrop={handleDropEvent(day_number)}
-          >
-            {displayEvent}
-          </td>
-        );
+        return drawCell(day_number, handleDropEvent, displayEvent);
       })}
     </tr>
   );
