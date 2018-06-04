@@ -2,12 +2,12 @@ import React from "react";
 import "./CalendarHeader.css";
 
 const CalendarHeader = props => {
-  const { showModal } = props;
+  const { handleShowModal } = props;
   return (
     <div className="calendarHeader">
       <div className="calendarHeader__upperContent">
         <h2 className="calendarHeader__title">Terminplaner</h2>
-        <button className="calendarHeader__addEvent" onClick={showModal}>
+        <button className="calendarHeader__addEvent" onClick={handleShowModal}>
           <span className="addEvent__content">+</span>
         </button>
       </div>

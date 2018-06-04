@@ -41,7 +41,7 @@ class AddEvent extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    const { addEvent, hideModal, events } = this.props;
+    const { addEvent, handleHideModal, events } = this.props;
     const { event } = this.state;
 
     const newEvent = { ...event };
@@ -49,7 +49,7 @@ class AddEvent extends Component {
     if (this.isValid(newEvent)) {
       newEvent.id = events.length + 1;
       addEvent(newEvent);
-      hideModal();
+      handleHideModal();
       return;
     } else
       this.setState({

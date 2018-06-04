@@ -6,26 +6,29 @@ import "./Calendar.css";
 
 class Calendar extends Component {
   state = {
-    showModal: false
+    isModalVisible: false
   };
 
-  showModal = () =>
+  handleShowModal = () =>
     this.setState({
-      showModal: true
+      isModalVisible: true
     });
 
-  hideModal = () =>
+  handleHideModal = () =>
     this.setState({
-      showModal: false
+      isModalVisible: false
     });
 
   render() {
-    const { showModal } = this.state;
+    const { isModalVisible } = this.state;
     return (
       <div className="calendar">
-        <Header showModal={this.showModal} />
+        <Header handleShowModal={this.handleShowModal} />
         <Body />
-        <Modal hideModal={this.hideModal} showModal={showModal} />
+        <Modal
+          handleHideModal={this.handleHideModal}
+          isModalVisible={isModalVisible}
+        />
       </div>
     );
   }
