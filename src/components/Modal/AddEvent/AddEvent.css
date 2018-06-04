@@ -1,0 +1,36 @@
+.addEvent {
+  position: absolute;
+  height: 30%;
+  width: 30%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 50px;
+  text-align: left;
+}
+
+.addEvent__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form__data {
+  display: flex;
+  justify-content: space-around;
+}
+
+.form__patientInformation {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 200px;
+}
+
+.inputDiv {
+  margin-bottom: 20px;
+}
+
+.form__submit {
+  margin-top: 50px;
+}

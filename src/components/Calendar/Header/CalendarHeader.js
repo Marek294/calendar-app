@@ -1,17 +1,21 @@
 import React from "react";
 import "./CalendarHeader.css";
 
-const CalendarHeader = () => {
+const CalendarHeader = props => {
+  const { showModal } = props;
   return (
     <div className="calendarHeader">
-      <h2 className="calendarHeader__title">Terminplaner</h2>
+      <div className="calendarHeader__upperContent">
+        <h2 className="calendarHeader__title">Terminplaner</h2>
+        <button className="calendarHeader__addEvent" onClick={showModal}>
+          <span className="addEvent__content">+</span>
+        </button>
+      </div>
       <div className="calendarHeader__control">
         <span className="control__prev">&lt;</span>
         <span className="control__date">9 &mdash; 15. November 2015 </span>
         <span className="conrol__next">&gt;</span>
       </div>
-      <span className="calendarHeader__month" />
-      <span className="calendarHeader__slider" />
     </div>
   );
 };
