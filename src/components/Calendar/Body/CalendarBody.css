@@ -1,4 +1,5 @@
 .calendarBody {
+  position: relative;
   overflow: scroll;
   height: 600px;
   border-top: 1px solid #edecec;
