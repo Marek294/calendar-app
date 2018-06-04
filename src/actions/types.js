@@ -1,1 +1,2 @@
 export const CHANGE_EVENT_POSITION = "CHANGE_EVENT_POSITION";
+export const ADD_EVENT = "ADD_EVENT";
