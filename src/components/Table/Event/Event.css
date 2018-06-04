@@ -7,3 +7,11 @@
 .past {
   background: #d6ecff;
 }
+
+.present {
+  background: #fdd466; 
+}
+
+.future {
+  background: #93d7fb; 
+}
