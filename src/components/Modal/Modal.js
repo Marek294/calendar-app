@@ -5,11 +5,11 @@ import AddEvent from "./AddEvent/AddEvent";
 import "./Modal.css";
 
 const Modal = props => {
-  const { hideModal, showModal } = props;
-  return showModal ? (
+  const { handleHideModal, isModalVisible } = props;
+  return isModalVisible ? (
     <div className="modal">
-      <Backdrop hideModal={hideModal} />
-      <AddEvent hideModal={hideModal} />
+      <Backdrop handleHideModal={handleHideModal} />
+      <AddEvent handleHideModal={handleHideModal} />
     </div>
   ) : null;
 };

@@ -41,6 +41,7 @@ const TableRow = props => {
 
         const displayEvent = event ? (
           <Event
+            day_number={day_number}
             start_hour={event.start_hour}
             patient={event.patient}
             handleDragEventStart={handleDragEventStart(event)}

@@ -5,7 +5,8 @@ import "./CalendarBody.css";
 
 class CalendarBody extends Component {
   state = {
-    top: 30
+    top: 30,
+    width: 0
   };
 
   componentDidMount() {
@@ -24,18 +25,20 @@ class CalendarBody extends Component {
     const mapMinutesTop = (timeObject.minutes * rowHeight) / 60;
 
     const top = mapHourTop + headerHeight + mapMinutesTop;
+    const width = calendarBody.scrollWidth;
 
     this.setState({
-      top
+      top,
+      width
     });
   }
 
   render() {
-    const { top } = this.state;
+    const { top, width } = this.state;
     return (
       <div className="calendarBody" ref="calendarBody">
         <Table />
-        <Timeline top={top} />
+        <Timeline top={top} width={width} />
       </div>
     );
   }
