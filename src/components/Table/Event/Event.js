@@ -12,9 +12,18 @@ const getHour = hour => {
 const Event = props => {
   const { patient, start_hour, handleDragEventStart } = props;
 
+  const currentHour = new Date().getHours();
+
+  const eventType =
+    currentHour > start_hour + 8
+      ? "past"
+      : currentHour === start_hour + 8
+        ? "present"
+        : "future";
+
   return (
     <a href="" onDragStart={handleDragEventStart}>
-      <div className="event past" draggable>
+      <div className={["event", eventType].join(" ")} draggable>
         <p className="hours">{getHour(start_hour)}</p>
         <p className="description">
           {patient.salutation} {patient.firstname} {patient.lastname}
